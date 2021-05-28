@@ -18,7 +18,7 @@ namespace Domain.Services
             targetAccount.Credit(amount);
         }
 
-        public static void Withdrawal(BankAccount targetAccount, decimal amount)
+        public static void Withdraw(BankAccount targetAccount, decimal amount)
         {
             if (amount <= 0)
             {

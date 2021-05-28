@@ -40,57 +40,57 @@ namespace UnitTest
 
 
         [Fact]
-        public void Withdrawal_WhenAPositiveEqualThanTheBalanceAmountIsGiven_ShouldDoTheWithdrawal()
+        public void Withdraw_WhenAPositiveEqualThanTheBalanceAmountIsGiven_ShouldDoTheWithdraw()
         {
             // arrange
             const decimal valueToBeWithdrawn = 100m;
             var bankAccount = new BankAccount();
+            bankAccount.Credit(100m);
 
             // act
-            bankAccount.Credit(100m);
-            BankOperationService.Withdrawal(bankAccount, valueToBeWithdrawn);
+            BankOperationService.Withdraw(bankAccount, valueToBeWithdrawn);
 
             // assert
             Assert.Equal(0.0m, bankAccount.Balance);
         }
 
         [Fact]
-        public void Withdrawal_WhenAPositiveSmallerThanTheBalanceAmountIsGiven_ShouldDoTheWithdrawal()
+        public void Withdraw_WhenAPositiveSmallerThanTheBalanceAmountIsGiven_ShouldDoTheWithdraw()
         {
             // arrange
             const decimal valueToBeWithdrawn = 90m;
             var bankAccount = new BankAccount();
+            bankAccount.Credit(100m);
 
             // act
-            bankAccount.Credit(100m);
-            BankOperationService.Withdrawal(bankAccount, valueToBeWithdrawn);
+            BankOperationService.Withdraw(bankAccount, valueToBeWithdrawn);
 
             // assert
             Assert.Equal(10m, bankAccount.Balance);
         }
 
         [Fact]
-        public void Withdrawal_WhenANegativeAmountIsGiven_ShouldGiveBackAnErrorAndNotWithdrawalToTheBalance()
+        public void Withdraw_WhenANegativeAmountIsGiven_ShouldGiveBackAnErrorAndNotWithdrawToTheBalance()
         {
             // arrange
             const decimal valueToBeWithdrawn = -100m;
             var bankAccount = new BankAccount();
 
             // act and assert
-            Assert.Throws<ArgumentException>(() => BankOperationService.Withdrawal(bankAccount, valueToBeWithdrawn));
+            Assert.Throws<ArgumentException>(() => BankOperationService.Withdraw(bankAccount, valueToBeWithdrawn));
             Assert.Equal(0.0m, bankAccount.Balance);
         }
 
         [Fact]
-        public void Withdrawal_WhenAPositiveAmountIsGreaterThanTheBalance_ShoudGiveBackAnErrorAndNotWithdrawalToTheBalance()
+        public void Withdraw_WhenAPositiveAmountIsGreaterThanTheBalance_ShoudGiveBackAnErrorAndNotWithdrawToTheBalance()
         {
             // arrange
             const decimal valueToBeWithdrawn = 150.0m;
             var bankAccount = new BankAccount();
+            bankAccount.Credit(100.0m);
 
             // act and assert
-            bankAccount.Credit(100.0m);
-            Assert.Throws<ArgumentException>(() => BankOperationService.Withdrawal(bankAccount, valueToBeWithdrawn));
+            Assert.Throws<ArgumentException>(() => BankOperationService.Withdraw(bankAccount, valueToBeWithdrawn));
             Assert.Equal(100.0m, bankAccount.Balance);
         }
 
@@ -101,9 +101,9 @@ namespace UnitTest
             const decimal valueToBeTransferred = 100m;
             var bankAccount = new BankAccount();
             var recipientAccount = new BankAccount();
+            bankAccount.Credit(150m);
 
             // act
-            bankAccount.Credit(150m);
             BankOperationService.Transfer(bankAccount, valueToBeTransferred, recipientAccount);
 
             // assert
@@ -133,9 +133,9 @@ namespace UnitTest
             const decimal valueToBeTransferred = 150m;
             var bankAccount = new BankAccount();
             var recipientAccount = new BankAccount();
+            bankAccount.Credit(100m);
 
             // act and assert
-            bankAccount.Credit(100m);
             Assert.Throws<ArgumentException>(
                 () => BankOperationService.Transfer(bankAccount, valueToBeTransferred, recipientAccount));
             Assert.Equal(100.0m, bankAccount.Balance);

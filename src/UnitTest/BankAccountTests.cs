@@ -18,7 +18,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void AddToBalance_WhenAPositiveAmountIsGiven_ShouldAddValueToAccountBalance()
+        public void Credit_WhenAPositiveAmountIsGiven_ShouldAddValueToAccountBalance()
         {
             // arrange
             const decimal valueToBeAdded = 100m;
@@ -32,7 +32,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void AddToBalance_WhenANegativeAmountIsGiven_ShouldGiveBackAnErrorAndNotAddAnyBalance()
+        public void Credit_WhenANegativeAmountIsGiven_ShouldGiveBackAnErrorAndNotAddAnyBalance()
         {
             // arrange
             const decimal valueToBeAdded = -100m;
@@ -45,7 +45,7 @@ namespace UnitTest
 
        
         [Fact]
-        public void SubtractFromBalance_WhenAPositiveSmallerThanTheBalanceAmountIsGiven_ShouldSubtractValueFromTheBalance()
+        public void Debit_WhenAPositiveSmallerThanTheBalanceAmountIsGiven_ShouldSubtractValueFromTheBalance()
         {
             // arrange
             const decimal valueToBeSubtracted = 100m;
@@ -60,7 +60,7 @@ namespace UnitTest
         }
 
         [Fact]
-        public void SubtractFromBalance_WhenAPositiveGreaterThanBalanceAmountIsGiven_ShouldSubtractFromTheBalance()
+        public void Debit_WhenAPositiveGreaterThanBalanceAmountIsGiven_ShouldSubtractFromTheBalance()
         {
             // arrange
             const decimal valueToBeSubtracted = 200m;
