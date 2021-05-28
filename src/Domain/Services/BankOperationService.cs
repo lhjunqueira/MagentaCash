@@ -15,7 +15,7 @@ namespace Domain.Services
             {
                 throw new ArgumentException("The deposited value should be a positive value.");
             }
-            targetAccount.AddToBalance(amount);
+            targetAccount.Credit(amount);
         }
 
         public static void Withdrawal(BankAccount targetAccount, decimal amount)
@@ -28,7 +28,7 @@ namespace Domain.Services
             {
                 throw new ArgumentException("The withdrawal amount should be less than the balance.");
             }
-            targetAccount.SubtractFromBalance(amount);
+            targetAccount.Debit(amount);
         }
 
         public static void Transfer(BankAccount targetAccount, decimal amount, BankAccount recipientAccount)
@@ -41,8 +41,8 @@ namespace Domain.Services
             {
                 throw new ArgumentException("The transfer amount should be less than the balance.");
             }
-            targetAccount.SubtractFromBalance(amount);
-            recipientAccount.AddToBalance(amount);
+            targetAccount.Debit(amount);
+            recipientAccount.Credit(amount);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace UnitTest
             var bankAccount = new BankAccount();
 
             // act
-            bankAccount.AddToBalance(valueToBeAdded);
+            bankAccount.Credit(valueToBeAdded);
 
             // assert
             Assert.Equal(valueToBeAdded, bankAccount.Balance);
@@ -39,7 +39,7 @@ namespace UnitTest
             var bankAccount = new BankAccount();
 
             // act and assert
-            Assert.Throws<ArgumentException>(() => bankAccount.AddToBalance(valueToBeAdded));
+            Assert.Throws<ArgumentException>(() => bankAccount.Credit(valueToBeAdded));
             Assert.Equal(0.0m, bankAccount.Balance);
         }
 
@@ -78,8 +78,8 @@ namespace UnitTest
             var bankAccount = new BankAccount();
 
             // act
-            bankAccount.AddToBalance(150m);
-            bankAccount.SubtractFromBalance(valueToBeSubtracted);
+            bankAccount.Credit(150m);
+            bankAccount.Debit(valueToBeSubtracted);
 
             // assert
             Assert.Equal(50m, bankAccount.Balance);
@@ -93,9 +93,9 @@ namespace UnitTest
             var bankAccount = new BankAccount();
 
             // act and assert
-            bankAccount.AddToBalance(150m);
+            bankAccount.Credit(150m);
             // eu tinha usado um assert.throws, porém retirei porque ele só joga exceção se for negativo
-            bankAccount.SubtractFromBalance(valueToBeSubtracted);
+            bankAccount.Debit(valueToBeSubtracted);
             Assert.Equal(-50m, bankAccount.Balance);
         }
 
@@ -107,7 +107,7 @@ namespace UnitTest
             var bankAccount = new BankAccount();
 
             // act
-            bankAccount.AddToBalance(100m);
+            bankAccount.Credit(100m);
             BankOperationService.Withdrawal(bankAccount, valueToBeWithdrawn);
 
             // assert
@@ -122,7 +122,7 @@ namespace UnitTest
             var bankAccount = new BankAccount();
 
             // act
-            bankAccount.AddToBalance(100m);
+            bankAccount.Credit(100m);
             BankOperationService.Withdrawal(bankAccount, valueToBeWithdrawn);
 
             // assert
@@ -149,7 +149,7 @@ namespace UnitTest
             var bankAccount = new BankAccount();
 
             // act and assert
-            bankAccount.AddToBalance(100.0m);
+            bankAccount.Credit(100.0m);
             Assert.Throws<ArgumentException>(() => BankOperationService.Withdrawal(bankAccount, valueToBeWithdrawn));
             Assert.Equal(100.0m, bankAccount.Balance);
         }
@@ -163,7 +163,7 @@ namespace UnitTest
             var recipientAccount = new BankAccount();
 
             // act
-            bankAccount.AddToBalance(150m);
+            bankAccount.Credit(150m);
             BankOperationService.Transfer(bankAccount, valueToBeTransferred, recipientAccount);
 
             // assert
@@ -195,7 +195,7 @@ namespace UnitTest
             var recipientAccount = new BankAccount();
 
             // act and assert
-            bankAccount.AddToBalance(100m);
+            bankAccount.Credit(100m);
             Assert.Throws<ArgumentException>(
                 () => BankOperationService.Transfer(bankAccount, valueToBeTransferred, recipientAccount));
             Assert.Equal(100.0m, bankAccount.Balance);

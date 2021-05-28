@@ -31,14 +31,14 @@ namespace Domain.Entities
             return s;
         }
 
-        public void AddToBalance(decimal amount)
+        public void Credit(decimal amount)
         {
             if (amount < 0)
                 throw new ArgumentException("Can't add negative values to the account.");
             Balance += amount;
         }
 
-        public void SubtractFromBalance(decimal amount)
+        public void Debit(decimal amount)
         {
             if (amount < 0)
                 throw new ArgumentException("Can't subtract negative values from the account.");
